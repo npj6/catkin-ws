@@ -1,5 +1,7 @@
 #include "controller.h"
 
+#include <iostream>
+
 /*DepthInfo, incluir por composicion, modulos de informacion a añadir, controller solo controla*/
 
 namespace VAR_CTRL {
@@ -9,17 +11,24 @@ namespace VAR_CTRL {
     // segundo parametro: si acumulamos varios mensajes, solo el último será enviado.
     movement = nh.advertise<geometry_msgs::Twist>("/"+robot_name+"/mobile_base/commands/velocity", 1);
 
-    Info info(nh, robot_name, sensors);
-    sources.push_back(info);
+    sources[0].initialize(nh, robot_name, sensors);
   }
 
   void Controller::loop(void) {
     ros::Rate rate(10); // frecuencia del bucle en hertzios (normalmente 100)
     while (ros::ok()) {
-      move();
       ros::spinOnce(); // procesar llamadas pendientes (callBacks de suscripciones)
+      decision();
+      move();
       rate.sleep();
     }
+  }
+
+  void Controller::decision(void) {
+    //modify forward and rotation speeds
+    //access source information through:
+    //  sources[n].get_size(Cam)
+    //  sources[n].get_data(Cam, uint)
   }
 
   void Controller::move(void) {

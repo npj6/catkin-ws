@@ -14,11 +14,13 @@ namespace VAR_CTRL {
     protected:
       ros::Publisher movement;
 
-      std::vector<Info> sources;
+      Info sources[1];
 
       double forward_speed, rotation_speed;
 
       void move(void);
+
+      void decision(void);
 
     public:
       Controller(ros::NodeHandle& nh, std::string robot_name, std::string sensors[]);
