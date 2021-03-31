@@ -1,40 +1,28 @@
 #pragma once
 
 #include <string>
-#include <vector>
 
 #include "ros/ros.h"
 
 #include "types.h"
+#include "callback.h"
 
 namespace VAR_CTRL {
-  template<class InfoT>
+  template<class InfoT, typename SensorT>
   class Info{
     protected:
-      ros::Subscriber cams[CAM_NUM];
-      PointCloud3D data[CAM_NUM];
+      ros::Subscriber sensors[SensorT::NUM];
+      Callback<InfoT> data[SensorT::NUM];
 
     public:
-      InfoT get_data(Cam cam) {return data[cam];}
+      InfoT get_data(SensorT s) {return data[s].get_data();}
 
-      Info(ros::NodeHandle& nh, std::string robot_name, std::string sensors[], std::string data)  {
+      //OBJECTS CREATED WITH THIS CONSTRUCTOR SHOULD *NOT* BE COPIED
+      Info(ros::NodeHandle& nh, std::string robot_name, std::string sensor_names[], std::string topic)  {
         //when the Subscriber gets out of scope, it unsubscribes the topic, avoiding the need of a destructor
-        cams[front] = nh.subscribe("/"+robot_name+"/"+sensors[front]+"/"+data, 1, &Info::callback<front>, this);
-        cams[back1] = nh.subscribe("/"+robot_name+"/"+sensors[back1]+"/"+data, 1, &Info::callback<back1>, this);
-        cams[back2] = nh.subscribe("/"+robot_name+"/"+sensors[back2]+"/"+data, 1, &Info::callback<back2>, this);
-      }
-
-      template<Cam camera>
-      void callback(const typename InfoT::ConstPtr& msg) {
-        callback(msg, camera);
-      }
-
-      void callback(const typename InfoT::ConstPtr& msg, Cam cam) {
-        data[cam] = *msg;
-        /*
-         std::vector<int> i;
-         pcl::removeNaNFromPointCloud(*msg, data[cam], i);
-        */
+        for(std::size_t s=0; s < SensorT::NUM; ++s) {
+          sensors[s] = nh.subscribe("/"+robot_name+"/"+sensor_names[s]+"/"+topic, 1, &Callback<InfoT>::callback, &data[s]);
+        }
       }
   };
 }

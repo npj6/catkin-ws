@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(var_ctrl)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
- add_compile_options(-std=c++0x) ## add -g for debug info (gdb!)
+ add_compile_options(-std=c++0x) ## add -g for debug info (rosrun --prefix 'gdb --args')
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
