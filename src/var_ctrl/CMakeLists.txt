@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(var_ctrl)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+ add_compile_options(-std=c++0x) ## add -g for debug info (rosrun --prefix 'gdb --args')
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   roscpp
   sensor_msgs
+  pcl_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -205,5 +206,5 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/controller.cpp src/test_controller.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
