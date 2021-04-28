@@ -6,6 +6,7 @@
 
 #include "types.h"
 #include "callback.h"
+#include "utils.h"
 
 namespace VAR_CTRL {
   template<class InfoT, typename SensorT>
@@ -21,7 +22,7 @@ namespace VAR_CTRL {
       Info(ros::NodeHandle& nh, std::string robot_name, std::string sensor_names[], std::string topic)  {
         //when the Subscriber gets out of scope, it unsubscribes the topic, avoiding the need of a destructor
         for(std::size_t s=0; s < SensorT::NUM; ++s) {
-          sensors[s] = nh.subscribe(robot_name+"/"+sensor_names[s]+"/"+topic, 1, &Callback<InfoT>::callback, &data[s]);
+          sensors[s] = nh.subscribe(topic_name(robot_name, sensor_names[s], topic), 1, &Callback<InfoT>::callback, &data[s]);
         }
       }
   };

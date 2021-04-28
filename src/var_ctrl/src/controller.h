@@ -5,6 +5,7 @@
 
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
+#include "utils.h"
 
 
 namespace VAR_CTRL {
