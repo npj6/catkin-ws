@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 
 #include "test_controller.h"
 #include "types.h"
@@ -6,19 +7,17 @@
 #include "ros/ros.h"
 
 void loop(std::vector<VAR_CTRL::Controller*> controllers);
+std::string adapt_name(std::string name);
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "var_ctrl");
   ros::NodeHandle nh;
   std::vector<VAR_CTRL::Controller*> controllers;
 
-  std::string turtlebot_sensors[VAR_CTRL::TurtlebotCams::NUM] = {"camera", "trasera1/trasera1", "trasera2/trasera2"};
+  std::string turtlebot_sensors[VAR_CTRL::TurtlebotCams::NUM] = {"camera"};
 
-  VAR_CTRL::TestController controller(nh, "robot1", turtlebot_sensors);
+  VAR_CTRL::TestController controller(nh, adapt_name(""), turtlebot_sensors);
   controllers.push_back(&controller);
-
-  VAR_CTRL::TestController controller2(nh, "robot2", turtlebot_sensors);
-  controllers.push_back(&controller2);
 
   loop(controllers);
   return 0;
@@ -34,4 +33,8 @@ void loop(std::vector<VAR_CTRL::Controller*> controllers) {
     }
     rate.sleep();
   }
+}
+
+std::string adapt_name(std::string name) {
+  return (name.empty()?name:"/"+name);
 }

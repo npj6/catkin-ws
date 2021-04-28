@@ -5,7 +5,7 @@ namespace VAR_CTRL {
     forward_speed=0.0;
     rotation_speed=0.0;
     // segundo parametro: si acumulamos varios mensajes, solo el último será enviado.
-    movement = nh.advertise<geometry_msgs::Twist>("/"+robot_name+"/mobile_base/commands/velocity", 1);
+    movement = nh.advertise<geometry_msgs::Twist>(robot_name+"/mobile_base/commands/velocity", 1);
   }
 
   void Controller::iterate(void) {
