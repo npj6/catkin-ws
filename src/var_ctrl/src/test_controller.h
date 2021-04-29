@@ -1,18 +1,17 @@
+#pragma once
 #include "controller.h"
-#include "info.h"
-#include "types.h"
+
+#include "turtlebot.h"
+
+#include "geometry_msgs/Twist.h"
 
 namespace VAR_CTRL {
 
-  class TestController : public Controller {
+  class TestController : public Controller<geometry_msgs::Twist, Turtlebot> {
     protected:
-      Info<PointCloud3D, TurtlebotCams> source;
-
-     void decision(void);
-
-    public:
-      TestController(ros::NodeHandle& nh, std::string robot_name, std::string sensors[]);
+      geometry_msgs::Twist doTypedDecision(Turtlebot const * robot) const;
 
   };
 
 }
+

@@ -1,27 +1,19 @@
 #pragma once
 
-#include <string>
-#include <vector>
-
-#include "ros/ros.h"
-#include "geometry_msgs/Twist.h"
-#include "utils.h"
-
+#include "move_controller.h"
+#include "robot.h"
 
 namespace VAR_CTRL {
-  class Controller {
-    protected:
-      ros::Publisher movement;
+  template<class MoveMsg, class RobotT>
+    class Controller : public MoveController<MoveMsg> {
+      protected:
 
-      double forward_speed, rotation_speed;
+        MoveMsg doDecision(Robot<MoveMsg> const * robot ) const {
+          return doTypedDecision(dynamic_cast<RobotT const *>(robot));
+        }
 
-      void move(void);
-
-      virtual void decision(void) = 0;
-
-    public:
-      Controller(ros::NodeHandle& nh, std::string robot_name);
-
-      void iterate(void);
-  };
+        virtual MoveMsg doTypedDecision(RobotT const * robot) const = 0;
+    };
 }
+
+
