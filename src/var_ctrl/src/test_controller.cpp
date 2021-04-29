@@ -1,8 +1,8 @@
 #include "test_controller.h"
 
 namespace VAR_CTRL {
-  geometry_msgs::Twist TestController::doTypedDecision(Turtlebot const * robot) const {
-    geometry_msgs::Twist msg;
+  TwistMove TestController::doTypedDecision(const Turtlebot * robot) const {
+    TwistMove msg;
     msg.linear.x = 1.0;
     msg.angular.z = 0.0;
     return msg;

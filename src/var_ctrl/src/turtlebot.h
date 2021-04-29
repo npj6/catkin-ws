@@ -1,14 +1,14 @@
 #pragma once
 
-#include "geometry_msgs/Twist.h"
-
 #include "robot.h"
-#include "topic.h"
+
 #include "types.h"
 #include "utils.h"
 
+#include "topic.h"
+
 namespace VAR_CTRL {
-  class Turtlebot : public Robot<geometry_msgs::Twist> {
+  class Turtlebot : public Robot<TwistMove> {
     public:
       Topic<PointCloud3D> depthCam;
 
@@ -16,7 +16,7 @@ namespace VAR_CTRL {
         ros::NodeHandle& nh,
         std::string name,
         std::string movementTopic,
-        MoveController<geometry_msgs::Twist> const * controller,
+        const MoveController<TwistMove> * controller,
         std::string depthCamTopic
       );
   };

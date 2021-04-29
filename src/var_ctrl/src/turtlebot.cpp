@@ -5,7 +5,7 @@ namespace VAR_CTRL {
     ros::NodeHandle& nh,
     std::string name,
     std::string movementTopic,
-    MoveController<geometry_msgs::Twist> const * controller,
+    const MoveController<TwistMove> * controller,
     std::string depthCamTopic
   ) :
     Robot(nh, name, movementTopic, controller),

@@ -3,13 +3,13 @@
 
 #include "turtlebot.h"
 
-#include "geometry_msgs/Twist.h"
+#include "types.h"
 
 namespace VAR_CTRL {
 
-  class TestController : public Controller<geometry_msgs::Twist, Turtlebot> {
+  class TestController : public Controller<TwistMove, Turtlebot> {
     protected:
-      geometry_msgs::Twist doTypedDecision(Turtlebot const * robot) const;
+      TwistMove doTypedDecision(const Turtlebot * robot) const;
 
   };
 

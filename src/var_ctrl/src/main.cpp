@@ -5,8 +5,6 @@
 #include "robot.h"
 #include "turtlebot.h"
 
-#include "types.h"
-
 #include "ros/ros.h"
 
 void loop(std::vector<VAR_CTRL::RobotIFace*> robots);

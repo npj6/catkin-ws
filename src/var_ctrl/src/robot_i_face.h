@@ -2,7 +2,9 @@
 
 namespace VAR_CTRL {
   class RobotIFace {
+    protected:
+      virtual void doCycle(void) const = 0;
     public:
-      virtual void cycle(void) const = 0;
+      void cycle(void) const {doCycle();}
   };
 }
