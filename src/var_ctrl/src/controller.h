@@ -1,12 +1,12 @@
 #pragma once
 
-#include "move_controller.h"
+#include "controller_i_face.h"
 
 #include "robot.h"
 
 namespace VAR_CTRL {
   template<class MoveMsg, class RobotT>
-    class Controller : public MoveController<MoveMsg> {
+    class Controller : public ControllerIFace<MoveMsg> {
       protected:
 
         MoveMsg doDecision(Robot<MoveMsg> const * robot ) const {

@@ -5,6 +5,6 @@ namespace VAR_CTRL {
     protected:
       virtual void doCycle(void) const = 0;
     public:
-      void cycle(void) const {doCycle();}
+      void cycle(void) const { doCycle(); }
   };
 }

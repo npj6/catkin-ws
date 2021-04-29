@@ -3,7 +3,7 @@
 #include "ros/ros.h"
 
 #include "robot_i_face.h"
-#include "move_controller.h"
+#include "controller_i_face.h"
 #include "utils.h"
 
 #include <string>
@@ -12,22 +12,21 @@ namespace VAR_CTRL {
 
   //forward declaration of move_controller
   template<class T>
-    class MoveController;
+    class ControllerIFace;
 
   template <class MoveMsg>
     class Robot : public RobotIFace {
  
       protected:
-
         //Robot name
         std::string name;
         //Movement publisher
         ros::Publisher movement;
         //Controller
-        const MoveController<MoveMsg> * controller;
+        const ControllerIFace<MoveMsg> * controller;
 
       public:
-        Robot(ros::NodeHandle& nh, std::string name, std::string movementTopic, const MoveController<MoveMsg> * controller) {
+        Robot(ros::NodeHandle& nh, std::string name, std::string movementTopic, const ControllerIFace<MoveMsg> * controller) {
           this->name = name;
           this->controller = controller;
           // segundo parametro: si acumulamos varios mensajes, solo el último será enviado.
