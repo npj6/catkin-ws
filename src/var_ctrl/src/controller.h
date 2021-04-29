@@ -9,11 +9,11 @@ namespace VAR_CTRL {
     class Controller : public ControllerIFace<MoveMsg> {
       protected:
 
-        MoveMsg doDecision(Robot<MoveMsg> const * robot ) const {
-          return doTypedDecision(dynamic_cast<RobotT const *>(robot));
+        MoveMsg doDecision(const Robot<MoveMsg> * robot ) const {
+          return doTypedDecision(dynamic_cast<const RobotT *>(robot));
         }
 
-        virtual MoveMsg doTypedDecision(RobotT const * robot) const = 0;
+        virtual MoveMsg doTypedDecision(const RobotT * robot) const = 0;
     };
 }
 
