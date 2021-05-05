@@ -1,16 +1,16 @@
 #include "test_controller.h"
 
 namespace VAR_CTRL {
-  TestController::TestController(ros::NodeHandle& nh, std::string robot_name, std::string sensors[]) :
-    Controller(nh, robot_name),
-    source(nh, robot_name, sensors, "depth/points")
-  { }
+  TwistMove TestController::doTypedDecision(const Turtlebot * robot) const {
+    TwistMove msg;
+    msg.linear.x = 1.0;
+    msg.angular.z = 0.0;
+    return msg;
+  }
+}
 
-  void TestController::decision(void) {
-    forward_speed = 1.0;
-    rotation_speed = 0.0;
 
-    /*
+ /*
     #include "pcl/filters/filter.h"
     #include <iostream>
 
@@ -29,5 +29,3 @@ namespace VAR_CTRL {
     if (0 < p.size())
     std::cout << "x: " << p[0].x << " y: " << p[0].y << " z: " << p[0].z << std::endl;
     */
-  }
-}
