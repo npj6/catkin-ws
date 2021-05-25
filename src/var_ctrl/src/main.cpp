@@ -2,6 +2,8 @@
 #include <string>
 
 #include "test_controller.h"
+#include "map_controller.h"
+
 #include "robot.h"
 #include "turtlebot.h"
 
@@ -14,7 +16,7 @@ int main(int argc, char **argv) {
   ros::NodeHandle nh;
   std::vector<VAR_CTRL::RobotIFace*> robots;
 
-  VAR_CTRL::TestController controller;
+  VAR_CTRL::MapController controller;
   VAR_CTRL::Turtlebot robot(nh, "", "mobile_base/commands/velocity", &controller, "camera/depth/points");
   robots.push_back(&robot);
 
